@@ -1,14 +1,14 @@
 var mongoose = require('mongoose');
 
-var Schema = mongoose.schema;
+var Schema = mongoose.Schema;
 
-var BookSchema = new Schema(
+var BookSchema = Schema(
     {
         title: {type: String, required: true},
-        author: {type: Schema.ObjectId, ref:'Author', reqired: true},
+        author: {type: mongoose.Schema.Types.ObjectId, ref:'Author', required: true},
         summary: {type: String, required: true},
         isbn: {type: String, required: true},
-        genre: [{type: Schema.ObjectId, ref: 'Genre'}],
+        genre: [{type: mongoose.Schema.Types.ObjectId, ref: 'Genre'}],
     }
 );
 
