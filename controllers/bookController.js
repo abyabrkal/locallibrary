@@ -34,16 +34,12 @@ exports.book_list = function(req, res, next) {
     Book.find({}, 'title author')
       .populate('author')
       .exec(function (err, list_books) {
-        if (err) { 
-            console.log("Error: " + err);
-            return next(err); 
-        }
+        if (err) { return next(err); }
         //Successful, so render
-        console.log("All Books Lists Success");
         res.render('booklist', { title: 'Book List', book_list: list_books });
-    });
+      });
       
-};
+  };
 
 // Display detail page for a specific book.
 exports.book_detail = function(req, res, next) {
