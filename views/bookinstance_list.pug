@@ -8,13 +8,13 @@ block content
     li 
       a(href=val.url) #{val.book.title} : #{val.imprint} - 
       if val.status=='Available'
-        span.text-success #{val.status}
+        button.btn.btn-success.btn-sm #{val.status}
       else if val.status=='Maintenance'
-        span.text-danger #{val.status}
+        button.btn.btn-danger.btn-sm #{val.status}
       else
-        span.text-warning #{val.status} 
+        button.btn.btn-warning.btn-sm #{val.status} 
       if val.status!='Available'
-        span  (Due: #{val.due_back} )
+        button.btn.btn-primary.btn-sm  (Due: #{val.due_back_formatted} )
 
   else
     li There are no book copies in this library.
