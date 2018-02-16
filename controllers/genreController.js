@@ -3,6 +3,7 @@ var Book = require('../models/book');
 
 var mongoose = require('mongoose');
 var async = require('async');
+var debug = require('debug');
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
@@ -155,11 +156,11 @@ exports.genre_delete_post = function(req, res, next) {
 };
 
 // Display Genre update form on GET.
-exports.genre_update_get = function(req, res) {
+exports.genre_update_get = function(req, res, next) {
     res.send('NOT IMPLEMENTED: Genre update GET');
 };
 
 // Handle Genre update on POST.
-exports.genre_update_post = function(req, res) {
+exports.genre_update_post = function(req, res, next) {
     res.send('NOT IMPLEMENTED: Genre update POST');
 };

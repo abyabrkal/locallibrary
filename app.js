@@ -4,16 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var debug = require('debug');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
+var compression = require('compression');
+var helmet = require('helmet');
 
 var app = express();
 
+app.use(helmet());
+
 // Setup mongoose database connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://ad-book:books99@ds012058.mlab.com:12058/local_lib';
+var mongoDB = process.env.MONGODB_URI || 'mongodb://ad-book:books99@ds012058.mlab.com:12058/local_lib';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -21,7 +26,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
@@ -31,6 +36,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
@@ -41,7 +48,7 @@ app.use('/catalog', catalog);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  console.log(err);
+  debug.log(err);
   next(err);
 });
 
@@ -53,7 +60,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  console.log(err);
+  debug.log(err);
   res.render('error');
 });
 
