@@ -1,6 +1,9 @@
 {
   "name": "locallibrary",
   "version": "1.0.0",
+  "engines": {
+    "node": "9.5.0"
+  },
   "private": true,
   "description": "Experiments with Node",
   "scripts": {
